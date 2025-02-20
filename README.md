@@ -288,3 +288,48 @@ const form = useForm<FormValues>({
 ```
 
 - `useForm` hooki orqali api dan malumot olib ularni inputlarga default qiymat sifatida berish. Bu usul `put` so'rovlar bilan ishlaganda juda qulay
+
+---
+
+## **📌 8-dars Nested Objects**
+
+Nested object inputdan malumot olib uni object sifatida saqlash imkonini beradi. Misol uchun biz foydalanuvchidan injtimoiy tarmoqlarni olishimiz kerkak buning uchun `social` nomi object yaratib uning ichiga olishimiz kerak bo'lgan ijtimoiy tarmoqlarni kiritamiz va shu orqali fydalanuvchidan malumotlarni olamiz
+
+```tsx
+type FormValues = {
+  username: string;
+  email: string;
+  channel: string;
+  social: {
+    twitter: string;
+    facebook: string;
+  };
+};
+
+const form = useForm<FormValues>({
+  defaultValues: {
+    username: "batman",
+    email: "",
+    channel: "",
+    social: {
+      twitter: "",
+      facebook: "",
+    },
+  },
+});
+
+
+<div className="form-control">
+  <label htmlFor="twitter">Twitter</label>
+  <input type="text" {...register("social.twitter")} />
+  <p className="error-message">{errors.social?.twitter?.message}</p>
+</div>
+
+<div className="form-control">
+  <label htmlFor="channel">Facebook</label>
+  <input type="text" {...register("social.facebook")} />
+  <p className="error-message">{errors.social?.facebook?.message}</p>
+</div>
+```
+
+- `{...register("social.twitter")}` social objecti ichidagi twitter xossasiga inputdagi malumotni yuklash
