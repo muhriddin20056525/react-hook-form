@@ -333,3 +333,66 @@ const form = useForm<FormValues>({
 ```
 
 - `{...register("social.twitter")}` social objecti ichidagi twitter xossasiga inputdagi malumotni yuklash
+
+---
+
+## **📌 9-dars Arrays**
+
+React Hook Formda malumotlarni arrayga saqlashimiz ham mumkin
+
+```tsx
+type FormValues = {
+  username: string;
+  email: string;
+  channel: string;
+  social: {
+    twitter: string;
+    facebook: string;
+  };
+  phoneNumbers: string[];
+};
+```
+
+- `phoneNumbers` - foydalanuvchidan telefon raqamlarini olib saqlaydigan array
+
+```tsx
+const form = useForm<FormValues>({
+  defaultValues: {
+    username: "batman",
+    email: "",
+    channel: "",
+    social: {
+      twitter: "",
+      facebook: "",
+    },
+    phoneNumbers: ["", ""],
+  },
+});
+```
+
+- `phoneNumbers` - arrayini `useForm` ga qo'shish
+- `["", ""]` - bu degani ushbu arrayga faqat 2 ta telefon raqami qo'shiladi
+
+```tsx
+<div className="form-control">
+  <label htmlFor="primary-phone">Primary Phone Number</label>
+  <input
+    type="text"
+    id="primary-phone"
+    {...register("phoneNumbers.0")}
+  />
+</div>
+
+<div className="form-control">
+  <label htmlFor="secondary-phone">Secondary Phone</label>
+  <input
+    type="text"
+    {...register("phoneNumbers.1")}
+    id="secondary-phone"
+  />
+</div>
+```
+
+- `phoneNumbers` arrayiga malumot qo'shish uchun uning indexsidan foydalanamiz
+- `{...register("phoneNumbers.0")}` - phoneNumbers arrayining birinchi bo'sh stringiga malumot qo'shadi arraydagi index bo'yicha bu bo'sh string nolinchi bo'ladi
+- `{...register("phoneNumbers.1")}` - phoneNumbers arrayining ikkinchi bo'sh stringiga malumot qo'shadi arraydagi index bo'yicha bu birinchi bo'sh string bo'ladi
