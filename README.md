@@ -396,3 +396,141 @@ const form = useForm<FormValues>({
 - `phoneNumbers` arrayiga malumot qo'shish uchun uning indexsidan foydalanamiz
 - `{...register("phoneNumbers.0")}` - phoneNumbers arrayining birinchi bo'sh stringiga malumot qo'shadi arraydagi index bo'yicha bu bo'sh string nolinchi bo'ladi
 - `{...register("phoneNumbers.1")}` - phoneNumbers arrayining ikkinchi bo'sh stringiga malumot qo'shadi arraydagi index bo'yicha bu birinchi bo'sh string bo'ladi
+
+---
+
+## **📌 10-dars Dynamic Fields**
+
+Dynamic Fields – bu React Hook Form da formadagi maydonlarni dinamik ravishda qo‘shish yoki o‘chirish imkonini beradigan usul. Bu odatda array (massiv) sifatida saqlanadigan inputlar bilan ishlash uchun ishlatiladi.
+
+```tsx
+type FormValues = {
+  phNumbers: {
+    number: string;
+  }[];
+};
+
+const form = useForm<FormValues>({
+  defaultValues: {
+    phNumbers: [{ number: "" }],
+  },
+});
+
+const { register, control, handleSubmit, formState } = form;
+const { errors } = formState;
+
+const { fields, append, remove } = useFieldArray({
+  name: "phNumbers",
+  control,
+});
+
+<div>
+  <label>List of phone numbers</label>
+
+  <div>
+    {fields.map((field, index) => (
+      <div className="form-control" key={field.id}>
+        <input
+          type="text"
+          {...register(`phNumbers.${index}.number` as const)}
+        />
+        {index > 0 && (
+          <button type="button" onClick={() => remove(index)}>
+            Remove
+          </button>
+        )}
+      </div>
+    ))}
+
+    <button type="button" onClick={() => append({ number: "" })}>
+      Add phone number
+    </button>
+  </div>
+</div>;
+```
+
+- Bu kod React Hook Form va useFieldArray yordamida dinamik telefon raqamlarini qo‘shish va o‘chirish imkonini beruvchi formani yaratadi.
+
+```tsx
+type FormValues = {
+  phNumbers: {
+    number: string;
+  }[];
+};
+```
+
+- `phNumbers` – massiv (array), unda har bir element `{ number: string }` shaklida bo‘ladi.
+- Har bir elementda `number` maydoni mavjud bo‘lib, telefon raqami sifatida ishlatiladi.
+
+```tsx
+const form = useForm<FormValues>({
+  defaultValues: {
+    phNumbers: [{ number: "" }],
+  },
+});
+```
+
+- `useForm<FormValues>()` – formani yaratadi va unga TypeScript tipi beriladi.
+- `defaultValues` – boshlang‘ich qiymatlar:
+  - `phNumbers` massivi ichida bitta bo‘sh telefon raqami bor.
+
+```tsx
+const { register, control, handleSubmit, formState } = form;
+const { errors } = formState;
+```
+
+- `register` – inputlarni formaga bog‘lash uchun ishlatiladi.
+- `control` – useFieldArray ni ishlatish uchun kerak bo‘lgan boshqaruvchi obyekt.
+- `handleSubmit` – formani yuborish uchun ishlatiladi.
+- `errors` – validatsiya xatolarini olish uchun ishlatiladi.
+
+```tsx
+const { fields, append, remove } = useFieldArray({
+  name: "phNumbers",
+  control,
+});
+```
+
+- `fields` – formadagi telefon raqamlarini ifodalovchi input maydonlarining ro‘yxati.
+- `append` – yangi telefon raqamini qo‘shish.
+- `remove` – mavjud telefon raqamini o‘chirish.
+
+```tsx
+<div>
+  <label>List of phone numbers</label>
+
+  <div>
+    {fields.map((field, index) => (
+      <div className="form-control" key={field.id}>
+        <input
+          type="text"
+          {...register(`phNumbers.${index}.number` as const)}
+        />
+        {index > 0 && (
+          <button type="button" onClick={() => remove(index)}>
+            Remove
+          </button>
+        )}
+      </div>
+    ))}
+
+    <button type="button" onClick={() => append({ number: "" })}>
+      Add phone number
+    </button>
+  </div>
+</div>
+```
+
+- Telefon raqamlar ro‘yxati `(fields.map())`:
+
+  - `fields` massivi ichidagi har bir telefon raqami uchun input yaratadi.
+  - `key={field.id}` – React uchun unikallikni ta’minlaydi.
+  - `register("...phNumbers.${index}.number")` – har bir inputni formaga bog‘laydi.
+
+- `Remove` tugmasi:
+
+  - Faqat 1-elementdan boshlab `(index > 0)` chiqariladi, chunki hech bo‘lmaganda bitta telefon raqami bo‘lishi kerak.
+  - Tugmaga bosilganda `remove(index)` orqali o‘sha telefon raqami o‘chiriladi.
+
+- `Add phone number` tugmasi:
+  - `append({ number: "" })` funksiyasi orqali yangi bo‘sh input qo‘shiladi.
