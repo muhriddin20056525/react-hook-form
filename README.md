@@ -534,3 +534,67 @@ const { fields, append, remove } = useFieldArray({
 
 - `Add phone number` tugmasi:
   - `append({ number: "" })` funksiyasi orqali yangi bo‘sh input qo‘shiladi.
+
+---
+
+## **📌 11-dars Numeric and Date Values**
+
+React Hook Form'da Numeric and Date Values raqamli va sanani ifodalovchi inputlar bilan ishlash uchun mo'ljallangan. Bu qiymatlar avtomatik ravishda valueAsNumber yoki valueAsDate xususiyatlari orqali mos keluvchi turga o‘giriladi. Misol uchun, type="number" input qiymatini son sifatida, type="date" esa JavaScript Date obyekti sifatida qaytaradi.
+
+```tsx
+type FormValues = {
+  age: number;
+};
+
+const form = useForm<FormValues>({
+  defaultValues: {
+    age: 0,
+  },
+});
+
+<div className="form-control">
+  <label htmlFor="age">Age</label>
+  <input
+    type="number"
+    {...register("age", {
+      valueAsNumber: true,
+      required: {
+        value: true,
+        message: "Age is required",
+      },
+    })}
+  />
+  <p className="error-message">{errors.age?.message}</p>
+</div>;
+```
+
+- `Age` uchun input `valueAsNumber: true` qo'shilishidan oldin string turida qiymat qaytarayotgandi qo'shilgandan keyin number turida qaytardi
+
+```tsx
+type FormValues = {
+  dob: Date;
+};
+
+const form = useForm<FormValues>({
+  defaultValues: {
+    dob: new Date(),
+  },
+});
+
+<div className="form-control">
+  <label htmlFor="dob">Date Of Birth</label>
+  <input
+    type="date"
+    {...register("dob", {
+      valueAsDate: true,
+      required: {
+        value: true,
+        message: "dob is required",
+      },
+    })}
+  />
+  <p className="error-message">{errors.dob?.message}</p>
+</div>;
+```
+
+- `Date` uchun input `valueAsDate: true` qo'shilishidan oldin string turida qiymat qaytarayotgandi qo'shilgandan keyin `Date` turida qaytardi
