@@ -598,3 +598,58 @@ const form = useForm<FormValues>({
 ```
 
 - `Date` uchun input `valueAsDate: true` qo'shilishidan oldin string turida qiymat qaytarayotgandi qo'shilgandan keyin `Date` turida qaytardi
+
+---
+
+## **📌 12-dars Watch Field Values**
+
+**watch** funksiyasi React Hook Form da forma maydonlarining joriy qiymatlarini kuzatish uchun ishlatiladi. U ma'lum bir inputning yoki butun formaning qiymatini olish va real vaqt rejimida o'zgarishlarni kuzatish imkonini beradi.
+
+```tsx
+const form = useForm<FormValues>({
+  defaultValues: {
+    username: "batman",
+    email: "",
+    channel: "",
+    social: {
+      twitter: "",
+      facebook: "",
+    },
+    phoneNumbers: ["", ""],
+    phNumbers: [{ number: "" }],
+    age: 0,
+    dob: new Date(),
+  },
+});
+const { register, control, handleSubmit, formState, watch } = form;
+const watchUsername = watch("username");
+<h2>{watchUsername}</h2>;
+```
+
+- `const watchUsername = watch("username")` - "username" input qiymatini kuzatadi
+- Agar `watch()` argumentisiz ishlatilsa, u butun formadagi barcha qiymatlarni qaytaradi.
+
+```tsx
+const watchUsername = watch(["username", "email"]);
+```
+
+- `username` va `email` inputlarining qiymatlarini array sifatida saqlaydi
+
+```tsx
+const watchForm = watch();
+<h2>{JSON.stringify(watchForm)}</h2>;
+```
+
+- `JSON` formatida form ichidagi barcha inputlarning qiymatini qaytaradi
+
+```tsx
+useEffect(() => {
+  const subscription = watch((value) => {
+    console.log(value);
+  });
+
+  return () => subscription.unsubscribe();
+}, [watch]);
+```
+
+- Bu kod formadagi har qanday input qiymati o'zgarganda uni `console.log` orqali ko'rsatib turadi. Shu bilan birga, komponent `unmount` bo‘lganda kuzatish avtomatik ravishda to‘xtatiladi.
