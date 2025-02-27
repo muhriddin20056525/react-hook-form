@@ -653,3 +653,59 @@ useEffect(() => {
 ```
 
 - Bu kod formadagi har qanday input qiymati o'zgarganda uni `console.log` orqali ko'rsatib turadi. Shu bilan birga, komponent `unmount` bo‘lganda kuzatish avtomatik ravishda to‘xtatiladi.
+
+---
+
+## **📌 13-dars Get Field Values**
+
+- `getValues()` funksiyasi yordamida `react-hook-form` ichidagi maydonlarning joriy qiymatlarini olish mumkin.
+- Agar `getValues("fieldName")` ishlatilsa, faqat bitta maydonning qiymati olinadi, lekin `getValues()` hech qanday argumentsiz chaqirilsa, barcha maydonlarning qiymatlarini obyekt sifatida qaytaradi.
+- `watch()` dan farqli o‘laroq, `getValues()` faqat o‘sha paytdagi qiymatni qaytaradi va form maydonlaridagi o‘zgarishlarni kuzatib bormaydi.
+
+```tsx
+const form = useForm<FormValues>({
+  defaultValues: {
+    username: "batman",
+    email: "",
+    channel: "",
+    social: {
+      twitter: "",
+      facebook: "",
+    },
+    phoneNumbers: ["", ""],
+    phNumbers: [{ number: "" }],
+    age: 0,
+    dob: new Date(),
+  },
+});
+
+const { register, control, handleSubmit, formState, getValues } = form;
+
+const handleGetValues = () => {
+  console.log("get values", getValues());
+};
+
+<button type="button" onClick={handleGetValues}>
+  Get Values
+</button>;
+```
+
+- `getValues` barcha inputlarning qiymatini oladi
+
+```tsx
+const handleGetValues = () => {
+  console.log("get values", getValues("social"));
+  console.log("get values", getValues("social.twitter"));
+};
+```
+
+- `getValues("social")` social maydonining qiymatino oladi
+- `social` maydoni object sifatida edi `getValues("social.twitter")` orqali uning ichidagi qiymatlarni alohida alohida olish mumkin. `twitter` `social` objecti ichidagi xususiyatlardan biri
+
+```tsx
+const handleGetValues = () => {
+  console.log("get values", getValues(["username", "channel"]));
+};
+```
+
+- `console.log("get values", getValues(["username", "channel"]))` bir netcha maydonlarni olish array qaytaradi
