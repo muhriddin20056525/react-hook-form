@@ -36,7 +36,8 @@ export default function YoutubeForm() {
       dob: new Date(),
     },
   });
-  const { register, control, handleSubmit, formState, getValues } = form;
+  const { register, control, handleSubmit, formState, getValues, setValue } =
+    form;
   const { errors } = formState;
 
   const { fields, append, remove } = useFieldArray({
@@ -62,6 +63,14 @@ export default function YoutubeForm() {
 
   //   return () => subscription.unsubscribe();
   // }, [watch]);
+
+  const handleSetValue = () => {
+    setValue("username", "", {
+      shouldValidate: true,
+      shouldDirty: true,
+      shouldTouch: true,
+    });
+  };
 
   renderCount++;
   return (
@@ -213,6 +222,10 @@ export default function YoutubeForm() {
         <button>Click</button>
         <button type="button" onClick={handleGetValues}>
           Get Values
+        </button>
+
+        <button type="button" onClick={handleSetValue}>
+          Set Value
         </button>
       </form>
       <DevTool control={control} />

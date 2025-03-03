@@ -709,3 +709,41 @@ const handleGetValues = () => {
 ```
 
 - `console.log("get values", getValues(["username", "channel"]))` bir netcha maydonlarni olish array qaytaradi
+
+---
+
+## **📌 14-dars Set Field Values**
+
+**setValue** funksiyasi React Hook Form da formadagi ma'lum bir input qiymatini dinamik ravishda o'zgartirish uchun ishlatiladi. Bu funksiya bilan input qiymatini kod orqali yangilash va shu o'zgarishlarni kuzatish mumkin.
+
+```tsx
+const form = useForm<FormValues>({
+  defaultValues: {
+    username: "batman",
+    email: "",
+    channel: "",
+    social: {
+      twitter: "",
+      facebook: "",
+    },
+    phoneNumbers: ["", ""],
+    phNumbers: [{ number: "" }],
+    age: 0,
+    dob: new Date(),
+  },
+});
+
+const { register, control, handleSubmit, formState, getValues, setValue } =
+  form;
+
+const handleSetValue = () => {
+  setValue("username", "Muhriddin");
+};
+
+<button type="button" onClick={handleSetValue}>
+  Set Value
+</button>;
+```
+
+- `setValue` funksiyasidan foydalanish
+- `handleSetValue` funksiyasi `setValue` dan foydalanib, `username` maydonining qiymatini `Muhriddin` qilib o'zgartiradi.
