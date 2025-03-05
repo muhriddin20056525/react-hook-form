@@ -792,3 +792,61 @@ console.log({ touchedFields, dirtyFields, isDirty });
 - `isDirty` – butun forma o‘zgarib-o‘zgarmaganini tekshiradigan boolean `(true/false)` qiymat qaytaradigan state.
   - Agar biror inputning qiymati o‘zgarsa, `isDirty = tru`e bo‘ladi.
   - Agar barcha inputlar o‘zining boshlang‘ich qiymatida bo‘lsa, `isDirty = false` bo‘ladi.
+
+---
+
+## **📌 16-dars Disabling Fields**
+
+`React Hook Form` da `Disabling Fields` (maydonlarni o‘chirib qo‘yish) deganda, formadagi ba’zi inputlarni foydalanuvchi tahrirlashini cheklash tushuniladi. Buni odatda `disabled` atributi yoki `setValue` funksiyasidan foydalanib amalga oshirish mumkin.
+
+```tsx
+const form = useForm<FormValues>({
+  defaultValues: {
+    username: "batman",
+    email: "",
+    channel: "",
+    social: {
+      twitter: "",
+      facebook: "",
+    },
+    phoneNumbers: ["", ""],
+    phNumbers: [{ number: "" }],
+    age: 0,
+    dob: new Date(),
+  },
+});
+const {
+  register,
+  control,
+  handleSubmit,
+  formState,
+  getValues,
+  setValue,
+  watch,
+} = form;
+
+<div className="form-control">
+  <label htmlFor="twitter">Twitter</label>
+  <input
+    type="text"
+    {...register("social.twitter", {
+      disabled: watch("channel") === "",
+      required: "Enter twitter profile",
+    })}
+  />
+  <p className="error-message">{errors.social?.twitter?.message}</p>
+</div>;
+```
+
+- `watch` – real vaqtda input maydonlarining qiymatini kuzatish
+- `<input>` elementi `register` yordamida formaga bog‘langan `(social.twitter)`.
+- `disabled`: `watch("channel") === ""`
+  - Agar channel maydoni bo‘sh bo‘lsa (""), `social.twitter` inputi bloklanadi (disabled bo‘ladi).
+  - Agar `channel` ga qiymat kiritilsa, `social.twitter` inputi faollashadi.
+- `required: "Enter twitter profile"`
+
+  - Agar foydalanuvchi `Twitter` profilini kiritmasa, `"Enter twitter profile"` degan xato xabari chiqadi.
+
+- Dinamik disabled: Agar channel maydoni bo‘sh bo‘lsa, social.twitter inputi bloklanadi.
+- Validatsiya: required orqali Twitter profilini majburiy qilish mumkin.
+- Xatoliklarni ko‘rsatish: errors.social?.twitter?.message orqali xato xabari chiqariladi.

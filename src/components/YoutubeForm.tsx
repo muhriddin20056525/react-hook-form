@@ -1,6 +1,6 @@
 import { useFieldArray, useForm } from "react-hook-form";
 import { DevTool } from "@hookform/devtools";
-import { useEffect } from "react";
+// import { useEffect } from "react";
 
 let renderCount = 0;
 
@@ -36,8 +36,15 @@ export default function YoutubeForm() {
       dob: new Date(),
     },
   });
-  const { register, control, handleSubmit, formState, getValues, setValue } =
-    form;
+  const {
+    register,
+    control,
+    handleSubmit,
+    formState,
+    getValues,
+    setValue,
+    watch,
+  } = form;
   const { errors, touchedFields, dirtyFields, isDirty } = formState;
   console.log({ touchedFields, dirtyFields, isDirty });
 
@@ -138,7 +145,13 @@ export default function YoutubeForm() {
 
         <div className="form-control">
           <label htmlFor="twitter">Twitter</label>
-          <input type="text" {...register("social.twitter")} />
+          <input
+            type="text"
+            {...register("social.twitter", {
+              disabled: watch("channel") === "",
+              required: "Enter twitter profile",
+            })}
+          />
           <p className="error-message">{errors.social?.twitter?.message}</p>
         </div>
 
