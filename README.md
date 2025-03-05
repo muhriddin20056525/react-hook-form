@@ -747,3 +747,48 @@ const handleSetValue = () => {
 
 - `setValue` funksiyasidan foydalanish
 - `handleSetValue` funksiyasi `setValue` dan foydalanib, `username` maydonining qiymatini `Muhriddin` qilib o'zgartiradi.
+
+---
+
+## **📌 15-dars Touched and Dirty States**
+
+**1. Touched State**
+Bu holat foydalanuvchi inputga kirib, keyin undan chiqib ketganini bildiradi.
+📌 Misol:
+
+- Agar foydalanuvchi inputni bosib ichiga kirdi va hech narsa yozmay chiqib ketsa, bu input touched deb belgilanadi.
+- Bu odatda validation xatolarini ko‘rsatish uchun ishlatiladi.
+
+**2. Dirty State**
+Bu holat foydalanuvchi inputning qiymatini o‘zgartirganini bildiradi.
+📌 Misol:
+
+- Foydalanuvchi inputga kirdi, eski qiymatini o‘chirib yangi qiymat kiritdi – bu input dirty deb belgilanadi.
+- Agar foydalanuvchi inputga kirdi, lekin hech narsa o‘zgartirmasa, u dirty bo‘lmaydi.
+
+```tsx
+const form = useForm<FormValues>({
+  defaultValues: {
+    username: "batman",
+    email: "",
+    channel: "",
+    social: {
+      twitter: "",
+      facebook: "",
+    },
+    phoneNumbers: ["", ""],
+    phNumbers: [{ number: "" }],
+    age: 0,
+    dob: new Date(),
+  },
+});
+const { register, control, handleSubmit, formState, getValues, setValue } =
+  form;
+const { errors, touchedFields, dirtyFields, isDirty } = formState;
+console.log({ touchedFields, dirtyFields, isDirty });
+```
+
+- `touchedFields`, `dirtyFields`, `isDirty` xossalarini chiqarib olish va consolega chiqarish
+- `isDirty` – butun forma o‘zgarib-o‘zgarmaganini tekshiradigan boolean `(true/false)` qiymat qaytaradigan state.
+  - Agar biror inputning qiymati o‘zgarsa, `isDirty = tru`e bo‘ladi.
+  - Agar barcha inputlar o‘zining boshlang‘ich qiymatida bo‘lsa, `isDirty = false` bo‘ladi.
