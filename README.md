@@ -850,3 +850,24 @@ const {
 - Dinamik disabled: Agar channel maydoni bo‘sh bo‘lsa, social.twitter inputi bloklanadi.
 - Validatsiya: required orqali Twitter profilini majburiy qilish mumkin.
 - Xatoliklarni ko‘rsatish: errors.social?.twitter?.message orqali xato xabari chiqariladi.
+
+---
+
+## **📌 17-dars Handle Submission Error**
+
+formadagi malumotlar jo'natilayotganda validatsiyadagi xatolarni ushlash uchun ishlatiladi
+
+```tsx
+const onError = (errors: FieldErrors<FormValues>) => {
+  console.log("Form Errors", errors);
+};
+
+<form onSubmit={handleSubmit(onSubmit, onError)} noValidate></form>;
+```
+
+- `onError` funksiyasi formada xatoliklar bo‘lsa ishga tushadi.
+- `errors` obyekt sifatida keladi va unda xatoliklar haqida ma’lumot bo‘ladi.
+- `FieldErrors<FormValues>` bu TypeScript tipi, u formadagi maydonlarning xatoliklarini ifodalaydi.
+- `handleSubmit(onSubmit, onError)`
+  - Agar hamma maydonlar to‘g‘ri bo‘lsa, `onSubmit` funksiyasi ishga tushadi.
+  - Agar xatolik bo‘lsa, `onError` funksiyasi chaqiriladi.
