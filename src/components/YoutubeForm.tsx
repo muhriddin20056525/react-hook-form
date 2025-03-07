@@ -50,8 +50,8 @@ export default function YoutubeForm() {
     setValue,
     watch,
   } = form;
-  const { errors, touchedFields, dirtyFields, isDirty } = formState;
-  console.log({ touchedFields, dirtyFields, isDirty });
+  const { errors, touchedFields, dirtyFields, isDirty, isValid } = formState;
+  console.log({ touchedFields, dirtyFields, isDirty, isValid });
 
   const { fields, append, remove } = useFieldArray({
     name: "phNumbers",
@@ -242,14 +242,16 @@ export default function YoutubeForm() {
           <p className="error-message">{errors.dob?.message}</p>
         </div>
 
-        <button>Click</button>
-        <button type="button" onClick={handleGetValues}>
-          Get Values
-        </button>
+        <div className="btns">
+          <button disabled={!isDirty || !isValid}>Click</button>
+          <button type="button" onClick={handleGetValues}>
+            Get Values
+          </button>
 
-        <button type="button" onClick={handleSetValue}>
-          Set Value
-        </button>
+          <button type="button" onClick={handleSetValue}>
+            Set Value
+          </button>
+        </div>
       </form>
       <DevTool control={control} />
     </div>

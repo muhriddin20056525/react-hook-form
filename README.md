@@ -871,3 +871,70 @@ const onError = (errors: FieldErrors<FormValues>) => {
 - `handleSubmit(onSubmit, onError)`
   - Agar hamma maydonlar to‘g‘ri bo‘lsa, `onSubmit` funksiyasi ishga tushadi.
   - Agar xatolik bo‘lsa, `onError` funksiyasi chaqiriladi.
+
+---
+
+## **📌 18-dars Disable Form Submission**
+
+```tsx
+const form = useForm<FormValues>({
+  defaultValues: {
+    username: "batman",
+    email: "",
+    channel: "",
+    social: {
+      twitter: "",
+      facebook: "",
+    },
+    phoneNumbers: ["", ""],
+    phNumbers: [{ number: "" }],
+    age: 0,
+    dob: new Date(),
+  },
+});
+const {
+  register,
+  control,
+  handleSubmit,
+  formState,
+  getValues,
+  setValue,
+  watch,
+} = form;
+const { errors, touchedFields, dirtyFields, isDirty, isValid } = formState;
+<button disabled={!isDirty || !isValid}>Click</button>;
+```
+
+- `const form = useForm<FormValues>({...})`
+
+  - `useForm` hook-i chaqirilmoqda va unga **`FormValues`** nomli interfeys yoki tur orqali shakl qiymatlarining turlari belgilab berilmoqda.
+  - `defaultValues` orqali formaning boshlang‘ich qiymatlari berilmoqda.
+
+- `defaultValues: {...}`
+
+  - `username`, `email`, `channel` kabi oddiy input qiymatlarining boshlang‘ich qiymatlari o‘rnatilmoqda.
+  - `social: { twitter: "", facebook: "" }` → obyekt ko‘rinishida ijtimoiy tarmoqlarga tegishli qiymatlar berilmoqda.
+  - `phoneNumbers: ["", ""]` → massiv ichida ikkita bo‘sh qiymat mavjud.
+  - `phNumbers: [{ number: "" }]` → obyekt ichida `number` maydoni bor massiv mavjud.
+  - `age: 0` va `dob: new Date()` bilan **yosh va tug‘ilgan sana** boshlang‘ich qiymat sifatida berilmoqda.
+
+- `const { register, control, handleSubmit, formState, getValues, setValue, watch } = form;`
+
+  - `register` → input maydonlarini `useForm` bilan bog‘lash uchun ishlatiladi.
+  - `control` → `Controller` komponenti bilan ishlash uchun kerak.
+  - `handleSubmit` → formani jo‘natish (`submit`) hodisasini boshqarish uchun ishlatiladi.
+  - `formState` → formaning holati (`errors`, `isDirty`, `isValid` va boshqalar) haqida ma’lumot beradi.
+  - `getValues` → hozirgi formadagi qiymatlarni olish uchun ishlatiladi.
+  - `setValue` → aniq bir input maydoniga qiymat berish uchun ishlatiladi.
+  - `watch` → formadagi o‘zgarishlarni kuzatish uchun ishlatiladi.
+
+- `const { errors, touchedFields, dirtyFields, isDirty, isValid } = formState;`
+
+  - `errors` → formadagi validatsiya xatolarini saqlaydi.
+  - `touchedFields` → foydalanuvchi tegib o‘tgan input maydonlarini bildiradi.
+  - `dirtyFields` → qiymati o‘zgartirilgan maydonlarni bildiradi.
+  - `isDirty` → **biror maydon** o‘zgartirilganligini bildiradi.
+  - `isValid` → forma to‘g‘ri to‘ldirilgan bo‘lsa `true`, aks holda `false`.
+
+- `<button disabled={!isDirty || !isValid}>Click</button>`
+  - `isDirty` `false` bo‘lsa (ya’ni, hech qanday o‘zgarish bo‘lmasa) yoki `isValid` `false` bo‘lsa (ya’ni, noto‘g‘ri to‘ldirilgan bo‘lsa), tugma (`button`) **o‘chirib qo‘yiladi (`disabled`)**.
