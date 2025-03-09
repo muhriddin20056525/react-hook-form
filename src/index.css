@@ -17,6 +17,12 @@
   margin-bottom: 30px;
 }
 
+form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 30px;
+}
+
 .form-control {
   margin-bottom: 30px;
 }

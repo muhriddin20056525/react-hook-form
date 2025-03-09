@@ -938,3 +938,25 @@ const { errors, touchedFields, dirtyFields, isDirty, isValid } = formState;
 
 - `<button disabled={!isDirty || !isValid}>Click</button>`
   - `isDirty` `false` bo‘lsa (ya’ni, hech qanday o‘zgarish bo‘lmasa) yoki `isValid` `false` bo‘lsa (ya’ni, noto‘g‘ri to‘ldirilgan bo‘lsa), tugma (`button`) **o‘chirib qo‘yiladi (`disabled`)**.
+
+---
+
+## **📌 19-dars Form Submission State**
+
+```tsx
+const { isSubmitting, isSubmitted, isSubmitSuccessful, submitCount } =
+  formState;
+
+console.log({ isSubmitting, isSubmitted, isSubmitSuccessful, submitCount });
+```
+
+- **`isSubmitting`** → Form hozir jo‘natilayotgan bo‘lsa (`true`), jo‘natish tugagandan so‘ng (`false`).
+- **`isSubmitted`** → Form **kamida bir marta** jo‘natilgan bo‘lsa (`true`).
+- **`isSubmitSuccessful`** → Form jo‘natilgandan **muvaffaqiyatli yakunlangan** bo‘lsa (`true`).
+- **`submitCount`** → Form **necha marta** jo‘natilganligini bildiradi.
+
+- **Formning real vaqtdagi holatini** tekshirish va `console.log` orqali uni kuzatish mumkin.
+- **`isSubmitting`** jo‘natish tugallanguncha **`true`**, keyin **`false`** bo‘ladi.
+- **`isSubmitted`** faqat **birinchi marta jo‘natilgandan so‘ng `true`** bo‘ladi.
+- **`isSubmitSuccessful`** form muvaffaqiyatli jo‘natilsa, **`true`** bo‘ladi.
+- **`submitCount`** form har safar jo‘natilganda **1 birlikka oshadi**.
