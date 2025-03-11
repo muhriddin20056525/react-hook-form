@@ -5,6 +5,7 @@ import {
   useForm,
 } from "react-hook-form";
 import { DevTool } from "@hookform/devtools";
+import { useEffect } from "react";
 // import { useEffect } from "react";
 
 let renderCount = 0;
@@ -49,6 +50,7 @@ export default function YoutubeForm() {
     getValues,
     setValue,
     watch,
+    reset,
   } = form;
   const {
     errors,
@@ -97,6 +99,12 @@ export default function YoutubeForm() {
       shouldTouch: true,
     });
   };
+
+  useEffect(() => {
+    if (isSubmitSuccessful) {
+      reset();
+    }
+  }, [isSubmitSuccessful, reset]);
 
   const onError = (errors: FieldErrors<FormValues>) => {
     console.log("Form Errors", errors);
@@ -257,6 +265,9 @@ export default function YoutubeForm() {
 
         <div className="btns">
           <button>Submit</button>
+          <button onClick={() => reset()} type="button">
+            Reset
+          </button>
           <button type="button" onClick={handleGetValues}>
             Get Values
           </button>

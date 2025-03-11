@@ -960,3 +960,51 @@ console.log({ isSubmitting, isSubmitted, isSubmitSuccessful, submitCount });
 - **`isSubmitted`** faqat **birinchi marta jo‘natilgandan so‘ng `true`** bo‘ladi.
 - **`isSubmitSuccessful`** form muvaffaqiyatli jo‘natilsa, **`true`** bo‘ladi.
 - **`submitCount`** form har safar jo‘natilganda **1 birlikka oshadi**.
+
+---
+
+## **📌 20-dars Reset Form**
+
+```tsx
+const form = useForm<FormValues>();
+const {
+  register,
+  control,
+  handleSubmit,
+  formState,
+  getValues,
+  setValue,
+  watch,
+  reset,
+} = form;
+
+<button onClick={() => reset()} type="button">
+  Reset
+</button>;
+```
+
+- **`useForm<FormValues>()`** → `react-hook-form` dan foydalanib, formani boshqarish uchun hook.
+- **`register`** → Input maydonlarini formaga bog‘lash uchun ishlatiladi.
+- **`control`** → `Controller` komponenti bilan boshqariladigan inputlar uchun kerak.
+- **`handleSubmit`** → Form submit qilinishi uchun ishlatiladigan funksiya.
+- **`formState`** → Formning hozirgi holati haqida ma'lumot beruvchi obyekt.
+- **`getValues`** → Formdagi maydonlarning hozirgi qiymatlarini olish uchun ishlatiladi.
+- **`setValue`** → Form maydonlariga dasturiy ravishda qiymat berish uchun ishlatiladi.
+- **`watch`** → Form maydonlaridagi o‘zgarishlarni real vaqtda kuzatish uchun ishlatiladi.
+- **`reset`** → Formni dastlabki holatiga qaytarish uchun ishlatiladi.
+- **`onClick={() => reset()}`** → Bu tugma bosilganda, form **tozalab yuboriladi**.
+- **Form maydonlari o‘zining boshlang‘ich qiymatlariga qaytadi**.
+- **Serverdan kelgan validatsiya xatolari ham tozalanadi**.
+
+```tsx
+useEffect(() => {
+  if (isSubmitSuccessful) {
+    reset();
+  }
+}, [isSubmitSuccessful, reset]);
+```
+
+- **`useEffect`** → React komponenti yuklanganda yoki berilgan dependensiyalar (`isSubmitSuccessful`, `reset`) o‘zgarganda ishlaydigan hook.
+- **`isSubmitSuccessful`** → Form muvaffaqiyatli jo‘natilgan bo‘lsa (`true`), shuni tekshiradi.
+- **`reset()`** → Agar `isSubmitSuccessful` **`true`** bo‘lsa, formani tozalaydi.
+- **`[isSubmitSuccessful, reset]`** → `useEffect` faqat `isSubmitSuccessful` yoki `reset` o‘zgarganida qayta ishlaydi.
