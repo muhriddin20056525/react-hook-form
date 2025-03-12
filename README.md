@@ -1008,3 +1008,40 @@ useEffect(() => {
 - **`isSubmitSuccessful`** → Form muvaffaqiyatli jo‘natilgan bo‘lsa (`true`), shuni tekshiradi.
 - **`reset()`** → Agar `isSubmitSuccessful` **`true`** bo‘lsa, formani tozalaydi.
 - **`[isSubmitSuccessful, reset]`** → `useEffect` faqat `isSubmitSuccessful` yoki `reset` o‘zgarganida qayta ishlaydi.
+
+---
+
+## **📌 21-dars Async Validation**
+
+```tsx
+<div className="form-control">
+  <label htmlFor="email">Email</label>
+  <input
+    type="email"
+    {...register("email", {
+      pattern: {
+        value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+        message: "Invalid email format",
+      },
+      validate: {
+        emailAvailable: async (fieldValue) => {
+          const response = await fetch(
+            `https://jsonplaceholder.typicode.com/users?email=${fieldValue}`
+          );
+
+          const data = await response.json();
+          return data.length == 0 || "Email already exists";
+        },
+      },
+    })}
+  />
+  <p className="error-message">{errors.email?.message}</p>
+</div>
+```
+
+- **`validate` (Serverdan tekshirish)**
+  - `emailAvailable` → Asinxron funksiya bo‘lib, email mavjudligini API orqali tekshiradi.
+  - `fetch("https://jsonplaceholder.typicode.com/users?email=${fieldValue}")`
+    - JSONPlaceholder API dan emailni tekshirish uchun foydalanilmoqda.
+  - **Agar email bazada mavjud bo‘lsa, `"Email already exists"` xatosi qaytadi.**
+  - **Agar email mavjud bo‘lmasa, `true` qaytadi va form valid bo‘ladi.**

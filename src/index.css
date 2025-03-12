@@ -1,65 +1,60 @@
-* {
-  margin: 0px;
-  padding: 0px;
-  box-sizing: border-box;
-  font-family: sans-serif;
-}
-
 .form-content {
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-}
-
-.form-content h1 {
-  margin-bottom: 30px;
-}
-
-form {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  column-gap: 30px;
+  padding: 0px 100px;
 }
 
 .form-control {
-  margin-bottom: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-bottom: 15px;
 }
 
-input {
-  width: 340px;
-  display: block;
-  padding: 5px;
-  font-size: 18px;
-  border-radius: 2px;
+.form-control label {
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+}
+
+.form-control input {
+  padding: 10px;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+  transition: border-color 0.3s;
+}
+
+.form-control input:focus {
+  border-color: #007bff;
   outline: none;
-  border: 2px solid gray;
-}
-
-label {
-  font-size: 18px;
-  margin-bottom: 5px;
-  display: block;
 }
 
 .error-message {
-  color: crimson;
+  color: red;
+  font-size: 12px;
+  margin-top: 5px;
 }
 
 button {
-  width: 340px;
-  padding: 15px;
-  font-size: 18px;
-  border-radius: 2px;
+  padding: 10px 16px;
+  background-color: #007bff;
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
   border: none;
-  border-radius: 3px;
-  background-color: #000;
-  color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
 }
 
-.btns {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
+button:hover {
+  background-color: #0056b3;
+}
+
+button:active {
+  transform: scale(0.95);
+}
+
+button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
 }

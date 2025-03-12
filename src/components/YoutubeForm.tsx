@@ -153,6 +153,15 @@ export default function YoutubeForm() {
                     "Tis domain is not supported"
                   );
                 },
+
+                emailAvailable: async (fieldValue) => {
+                  const response = await fetch(
+                    `https://jsonplaceholder.typicode.com/users?email=${fieldValue}`
+                  );
+
+                  const data = await response.json();
+                  return data.length == 0 || "Email already exists";
+                },
               },
             })}
           />
@@ -264,7 +273,7 @@ export default function YoutubeForm() {
         </div>
 
         <div className="btns">
-          <button>Submit</button>
+          <button disabled={!isDirty || !isSubmitting}>Submit</button>
           <button onClick={() => reset()} type="button">
             Reset
           </button>
