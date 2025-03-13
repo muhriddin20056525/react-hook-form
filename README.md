@@ -1045,3 +1045,34 @@ useEffect(() => {
     - JSONPlaceholder API dan emailni tekshirish uchun foydalanilmoqda.
   - **Agar email bazada mavjud bo‘lsa, `"Email already exists"` xatosi qaytadi.**
   - **Agar email mavjud bo‘lmasa, `true` qaytadi va form valid bo‘ladi.**
+
+---
+
+## **📌 22-dars Validation Modes**
+
+```tsx
+const form = useForm<FormValues>({
+  defaultValues: {
+    username: "batman",
+    email: "",
+    channel: "",
+    social: {
+      twitter: "",
+      facebook: "",
+    },
+    phoneNumbers: ["", ""],
+    phNumbers: [{ number: "" }],
+    age: 0,
+    dob: new Date(),
+  },
+  mode: "all",
+});
+```
+
+**`mode: "all"` - Validatsiya rejimi**
+
+- `"all"` - Bu validatsiya rejimi bo‘lib, formadagi barcha o‘zgarishlarni kuzatadi va real vaqt rejimida tekshiradi.
+- Boshqa variantlar:
+  - `"onSubmit"` — faqat submit (yuborish) vaqtida tekshiradi.
+  - `"onChange"` — har o‘zgarishda tekshiradi.
+  - `"onBlur"` — foydalanuvchi maydondan chiqsa tekshiradi.
