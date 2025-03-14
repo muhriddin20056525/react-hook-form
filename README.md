@@ -1076,3 +1076,29 @@ const form = useForm<FormValues>({
   - `"onSubmit"` — faqat submit (yuborish) vaqtida tekshiradi.
   - `"onChange"` — har o‘zgarishda tekshiradi.
   - `"onBlur"` — foydalanuvchi maydondan chiqsa tekshiradi.
+
+---
+
+## **📌 23-dars Manually Trigger Validations**
+
+```tsx
+const { trigger } = form;
+<button type="button" onClick={() => trigger()}>
+  validate
+</button>;
+```
+
+- `trigger` – Forma maydonlarini validatsiya qilish uchun ishlatiladi.
+- Bu oddiy tugma bo‘lib, bosilganda `trigger()` funksiyasini chaqiradi.
+- `trigger()` esa formadagi barcha maydonlarni `validatsiya` (tekshirish) qiladi.
+- Agar formadagi maydonlar validatsiyadan o‘tmasa, u holda xatoliklarni `formState.errors` orqali ko‘rish mumkin.
+
+```tsx
+<button type="button" onClick={() => trigger("channel")}>
+  validate
+</button>
+```
+
+- `trigger("channel")` – faqat "channel" nomli input maydonini validatsiya qiladi.
+- Agar `"channel"` inputi noto‘g‘ri to‘ldirilgan bo‘lsa, `formState.errors.channel` orqali xatolikni olish mumkin.
+- Agar `"channel"` inputi to‘g‘ri bo‘lsa, hech qanday xatolik qaytmaydi.

@@ -41,7 +41,7 @@ export default function YoutubeForm() {
       age: 0,
       dob: new Date(),
     },
-    mode: "all",
+    mode: "onChange",
   });
   const {
     register,
@@ -52,6 +52,7 @@ export default function YoutubeForm() {
     setValue,
     watch,
     reset,
+    trigger,
   } = form;
   const {
     errors,
@@ -284,6 +285,9 @@ export default function YoutubeForm() {
 
           <button type="button" onClick={handleSetValue}>
             Set Value
+          </button>
+          <button type="button" onClick={() => trigger("channel")}>
+            validate
           </button>
         </div>
       </form>
