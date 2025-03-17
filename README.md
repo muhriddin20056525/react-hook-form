@@ -1102,3 +1102,67 @@ const { trigger } = form;
 - `trigger("channel")` – faqat "channel" nomli input maydonini validatsiya qiladi.
 - Agar `"channel"` inputi noto‘g‘ri to‘ldirilgan bo‘lsa, `formState.errors.channel` orqali xatolikni olish mumkin.
 - Agar `"channel"` inputi to‘g‘ri bo‘lsa, hech qanday xatolik qaytmaydi.
+
+---
+
+## **📌 24-dars Yup Integration**
+
+```
+npm install yup @hookform/resolvers
+```
+
+- `yup` – Schema validation kutubxonasi. Form va boshqa ma’lumotlarni tekshirish uchun ishlatiladi.
+- `@hookform/resolvers` – React Hook Form bilan Yup (yoki boshqa validatsiya kutubxonalari) ishlashi uchun maxsus "resolvers" kutubxonasi.
+
+```tsx
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+
+const schema = yup.object({
+  username: yup.string().required("Username is required"),
+  email: yup
+    .string()
+    .email("Email format is not valid")
+    .required("Email is required"),
+  channel: yup.string().required("Channel is required"),
+});
+
+const form = useForm<FormValues>({
+  defaultValues: {
+    username: "",
+    email: "",
+    channel: "",
+  },
+  resolver: yupResolver(schema),
+});
+
+<div className="form-control">
+  <label htmlFor="username">Username</label>
+  <input type="text" {...register("username")} />
+  <p className="error-message">{errors.username?.message}</p>
+</div>;
+```
+
+- `import { yupResolver } from "@hookform/resolvers/yup";` - Bu React Hook Form uchun Yup validatsiyasini ishlatish imkonini beradi.
+- `import * as yup from "yup";` - Bu ma'lumotlarni (masalan, formadagi inputlarni) tekshirish uchun ishlatiladi.
+
+- `yup.object({...})` – Bu schema obyektini yaratadi.
+- `username: yup.string().required("Username is required")`
+  - `username` string bo‘lishi kerak.
+  - Agar foydalanuvchi kiritmasa, `"Username is required"` degan xabar chiqadi.
+- `email: yup.string().email().required()`
+  - `String` bo‘lishi kerak.
+  - `.email("Email format is not valid")` – Email noto‘g‘ri formatda bo‘lsa, xato xabari chiqadi.
+  - `.required("Email is required")` – Agar foydalanuvchi hech narsa kiritmasa, `"Email is required"` xabari chiqadi.
+- `channel: yup.string().required("Channel is required")`
+
+  - `channel` `string` bo‘lishi kerak.
+  - Agar foydalanuvchi hech narsa kiritmasa, `"Channel is required"` xabari chiqadi.
+
+- `resolver: yupResolver(schema)`
+
+  - `yupResolver(schema)` – `Yup` orqali avtomatik validatsiya qilish imkonini beradi.
+  - Agar foydalanuvchi noto‘g‘ri ma’lumot kiritsa, `Yup` bu xatoni aniqlaydi va `React Hook Form` uni qaytaradi.
+
+- `<p className="error-message">{errors.username?.message}</p>`
+  - `React Hook Form` qaytargan xatolarni ko'rsatadi
