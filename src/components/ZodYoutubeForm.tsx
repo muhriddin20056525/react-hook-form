@@ -1,14 +1,14 @@
 import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
 
-const schema = yup.object({
-  username: yup.string().required("Username is required"),
-  email: yup
+const schema = z.object({
+  username: z.string().nonempty("Username is required"),
+  email: z
     .string()
-    .email("Email format is not valid")
-    .required("Email is required"),
-  channel: yup.string().required("Channel is required"),
+    .nonempty("Email is required")
+    .email("Email format not is valid"),
+  channel: z.string().nonempty("Channel is required"),
 });
 
 type FormValues = {
@@ -17,14 +17,14 @@ type FormValues = {
   channel: string;
 };
 
-export default function YupYoutubeForm() {
+export default function ZodYoutubeForm() {
   const form = useForm<FormValues>({
     defaultValues: {
       username: "",
       email: "",
       channel: "",
     },
-    resolver: yupResolver(schema),
+    resolver: zodResolver(schema),
   });
 
   const {
@@ -39,7 +39,7 @@ export default function YupYoutubeForm() {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <h1>Yup Youtube Form</h1>
+      <h1>Zod Youtube Form</h1>
       <div className="form-control">
         <label htmlFor="username">Username</label>
         <input type="text" {...register("username")} />

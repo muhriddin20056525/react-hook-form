@@ -1166,3 +1166,73 @@ const form = useForm<FormValues>({
 
 - `<p className="error-message">{errors.username?.message}</p>`
   - `React Hook Form` qaytargan xatolarni ko'rsatadi
+
+---
+
+## **📌 25-dars Zod Integration**
+
+```
+npm isntall zod
+```
+
+- `Zod` kutubxonasini o'rnatish
+
+```tsx
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+
+const schema = z.object({
+  username: z.string().nonempty("Username is required"),
+  email: z
+    .string()
+    .nonempty("Email is required")
+    .email("Email format not is valid"),
+  channel: z.string().nonempty("Channel is required"),
+});
+
+export default function ZodYoutubeForm() {
+  const form = useForm<FormValues>({
+    defaultValues: {
+      username: "",
+      email: "",
+      channel: "",
+    },
+    resolver: zodResolver(schema),
+  });
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = form;
+
+  const onSubmit = (data: FormValues) => {
+    console.log(data);
+  };
+
+  return (
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <h1>Zod Youtube Form</h1>
+      <div className="form-control">
+        <label htmlFor="username">Username</label>
+        <input type="text" {...register("username")} />
+        <p className="error-message">{errors.username?.message}</p>
+      </div>
+
+      <button>Submit</button>
+    </form>
+  );
+}
+```
+
+- `zodResolver` – React Hook Form bilan `Zod` ni bog‘laydi.
+- `z` - Bu `Zod` kutubxonasidan foydalanish uchun kerak.
+
+- `schema` – bu validatsiya sxemasi bo‘lib, foydalanuvchi tomonidan kiritiladigan ma’lumotlarni tekshiradi.
+- Uchta maydon (`username, email, channel`) uchun qoidalar belgilangan.
+- Agar foydalanuvchi qoidalarni buzsa, xatolik xabari (`error message`) qaytariladi.
+- `z.string()` – qiymat matn bo‘lishi kerak.
+- `.nonempty("Username is required")` – bo‘sh bo‘lsa, `"Username is required"` xatosini chiqaradi.
+- `.email("Email format not is valid")` – noto‘g‘ri email bo‘lsa, `"Email format not is valid"` xatosini chiqaradi.
+- `<p className="error-message">{errors.username?.message}</p>` Zod qaytargan error messagelarni ko'rsatadi
