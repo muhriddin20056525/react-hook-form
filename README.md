@@ -10,6 +10,63 @@
 
 ---
 
+| Mundarija                                                         |
+| ----------------------------------------------------------------- |
+| [1-dars kutubxonani o'rnatish va useForm hooki][1-dars]           |
+| [2-dars React Hook Form Devtools][2-dars]                         |
+| [3-dars Formadan Olingan Malumotlarni Jo'natish (Submit)][3-dars] |
+| [4-dars Validatsiya Qo'shish][4-dars]                             |
+| [5-dars Error messagelarni ko'rsatish][5-dars]                    |
+| [6-dars Custom Valudation][6-dars]                                |
+| [7-dars Default Qiymat Berish][7-dars]                            |
+| [8-dars Nested Objects][8-dars]                                   |
+| [9-dars Arrays][9-dars]                                           |
+| [11-dars Numeric and Date Values][11-dars]                        |
+| [12-dars Watch Field Values][12-dars]                             |
+| [13-dars Get Field Values][13-dars]                               |
+| [14-dars Set Field Values][14-dars]                               |
+| [15-dars Touched and Dirty States][15-dars]                       |
+| [16-dars Disabling Fields][16-dars]                               |
+| [17-dars Handle Submission Error][17-dars]                        |
+| [18-dars Disable Form Submission][18-dars]                        |
+| [19-dars Form Submission State][19-dars]                          |
+| [20-dars Reset Form][20-dars]                                     |
+| [21-dars Async Validation][21-dars]                               |
+| [22-dars Validation Modes][22-dars]                               |
+| [23-dars Manually Trigger Validations][23-dars]                   |
+| [24-dars Yup Integration][24-dars]                                |
+| [25-dars Zod Integration][25-dars]                                |
+| [26-dars Material UI Integration][26-dars]                        |
+
+[1-dars]: https://github.com/muhriddin20056525/react-hook-form?tab=readme-ov-file#-1-dars-kutubxonani-ornatish-va-useform-hooki
+[2-dars]: https://github.com/muhriddin20056525/react-hook-form?tab=readme-ov-file#-2-dars-react-hook-form-devtools
+[3-dars]: https://github.com/muhriddin20056525/react-hook-form?tab=readme-ov-file#-3-dars-formadan-olingan-malumotlarni-jonatish-submit
+[4-dars]: https://github.com/muhriddin20056525/react-hook-form?tab=readme-ov-file#-4-dars-validatsiya-qoshish
+[5-dars]: https://github.com/muhriddin20056525/react-hook-form?tab=readme-ov-file#-5-dars-error-messagelarni-korsatish
+[6-dars]: https://github.com/muhriddin20056525/react-hook-form?tab=readme-ov-file#-6-dars-custom-valudation
+[7-dars]: https://github.com/muhriddin20056525/react-hook-form?tab=readme-ov-file#-7-dars-default-qiymat-berish
+[8-dars]: https://github.com/muhriddin20056525/react-hook-form?tab=readme-ov-file#-8-dars-nested-objects
+[9-dars]: https://github.com/muhriddin20056525/react-hook-form?tab=readme-ov-file#-9-dars-arrays
+[10-dars]: https://github.com/muhriddin20056525/react-hook-form?tab=readme-ov-file#-10-dars-dynamic-fields
+[11-dars]: https://github.com/muhriddin20056525/react-hook-form?tab=readme-ov-file#-11-dars-numeric-and-date-values
+[12-dars]: https://github.com/muhriddin20056525/react-hook-form?tab=readme-ov-file#-12-dars-watch-field-values
+[13-dars]: https://github.com/muhriddin20056525/react-hook-form?tab=readme-ov-file#-13-dars-get-field-values
+[14-dars]: https://github.com/muhriddin20056525/react-hook-form?tab=readme-ov-file#-14-dars-set-field-values
+[15-dars]: https://github.com/muhriddin20056525/react-hook-form?tab=readme-ov-file#-15-dars-touched-and-dirty-states
+[16-dars]: https://github.com/muhriddin20056525/react-hook-form?tab=readme-ov-file#-16-dars-disabling-fields
+[17-dars]: https://github.com/muhriddin20056525/react-hook-form?tab=readme-ov-file#-17-dars-handle-submission-error
+[18-dars]: https://github.com/muhriddin20056525/react-hook-form?tab=readme-ov-file#-18-dars-disable-form-submission
+[19-dars]: https://github.com/muhriddin20056525/react-hook-form?tab=readme-ov-file#-19-dars-form-submission-state
+[20-dars]: https://github.com/muhriddin20056525/react-hook-form?tab=readme-ov-file#-20-dars-reset-form
+[21-dars]: https://github.com/muhriddin20056525/react-hook-form?tab=readme-ov-file#-21-dars-async-validation
+[22-dars]: https://github.com/muhriddin20056525/react-hook-form?tab=readme-ov-file#-22-dars-validation-modes
+[23-dars]: https://github.com/muhriddin20056525/react-hook-form?tab=readme-ov-file#-23-dars-manually-trigger-validations
+[24-dars]: https://github.com/muhriddin20056525/react-hook-form?tab=readme-ov-file#-24-dars-yup-integration
+[25-dars]: https://github.com/muhriddin20056525/react-hook-form?tab=readme-ov-file#-25-dars-zod-integration
+[26-dars]: https://github.com/muhriddin20056525/react-hook-form?tab=readme-ov-file#-26-dars-material-ui-integration
+
+---
+
 ## **📌 1-dars kutubxonani o'rnatish va useForm hooki**
 
 ```bash
