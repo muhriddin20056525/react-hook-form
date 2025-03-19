@@ -1236,3 +1236,78 @@ export default function ZodYoutubeForm() {
 - `.nonempty("Username is required")` – bo‘sh bo‘lsa, `"Username is required"` xatosini chiqaradi.
 - `.email("Email format not is valid")` – noto‘g‘ri email bo‘lsa, `"Email format not is valid"` xatosini chiqaradi.
 - `<p className="error-message">{errors.username?.message}</p>` Zod qaytargan error messagelarni ko'rsatadi
+
+---
+
+## **📌 26-dars Material UI Integration**
+
+Bu kodda react hook form va material uini integratsiya qilish ko'rsatilgan
+
+```tsx
+import { Button, Stack, TextField } from "@mui/material";
+import { useForm } from "react-hook-form";
+
+type FormValues = {
+  email: string;
+  password: string;
+};
+
+export default function MuiLoginForm() {
+  const form = useForm<FormValues>({
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+  });
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = form;
+
+  const onSubmit = (data: FormValues) => {
+    console.log(data);
+  };
+
+  return (
+    <>
+      <h1>Login</h1>
+      <form onSubmit={handleSubmit(onSubmit)} noValidate>
+        <Stack spacing={2} width={400}>
+          <TextField
+            label="Email"
+            type="email"
+            {...register("email", {
+              required: "Email is required",
+            })}
+            error={!!errors.email}
+            helperText={errors.email?.message}
+          />
+          <TextField
+            label="Password"
+            type="password"
+            {...register("password", {
+              required: "Password is required",
+            })}
+            error={!!errors.password}
+            helperText={errors.password?.message}
+          />
+          <Button type="submit" variant="contained" color="primary">
+            Login
+          </Button>
+        </Stack>
+      </form>
+    </>
+  );
+}
+```
+
+- `TextField` – MUI’dagi input komponenti.
+- `label="Email"` – Input maydonining nomi.
+- `type="email"` – Email uchun input turi.
+- `{...register("email", { required: "Email is required" })} –`
+  - `register("email")` – bu inputni React Hook Form ga bog‘laydi.
+  - `required: "Email is required"` – Agar foydalanuvchi emailni kiritmasa, xatolik chiqadi.
+- `error={!!errors.email}` – Agar emailda xato bo‘lsa, input qizil ramkada bo‘ladi.
+- `helperText={errors.email?.message}` – Agar xato bo‘lsa, xatolik matni chiqadi.
